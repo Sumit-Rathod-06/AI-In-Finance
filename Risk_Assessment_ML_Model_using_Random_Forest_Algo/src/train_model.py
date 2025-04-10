@@ -11,15 +11,13 @@ from preprocess import load_and_clean_data
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-df = load_and_clean_data("./data/dataset.csv")
+df = load_and_clean_data(r"C:\Users\HP\Desktop\AiF\AI-In-Finance\Risk_Assessment_ML_Model_using_Random_Forest_Algo\data\dataset.csv")
 
-X = df.drop(columns=['loan_default'])
-y = df['loan_default']
+X = df.drop(columns=['repay_fail'])
+y = df['repay_fail']
+y = y.astype(int)
 
-smote = SMOTE(random_state=42)
-X_resampled, y_resampled = smote.fit_resample(X, y)
-
-X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 param_dist = {
     'n_estimators': [100, 200, 300],
